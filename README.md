@@ -3,6 +3,42 @@
 A compiled list of links to public failure stories related to Kubernetes.
 Most recent publications on top.
 
+* [How we failed to integrate Istio into our platform - Exponea - blog post 2019](https://medium.com/@jakubkulich/sailing-with-the-istio-through-the-shallow-water-8ae81668381e)
+    * involved: Istio, GKE, proxy injection
+    * impact: stopped Istio rollout, developers' time spent
+* [Kubernetes made my latency 10x higher - Adevinta - blog post 2019](https://srvaroa.github.io/kubernetes/migration/latency/dns/java/aws/microservices/2019/10/22/kubernetes-added-a-0-to-my-latency.html)
+    * involved: KIAM, DNS, AWS IAM, latency
+    * impact: service showing up to x10 higher latencies compared to a deployment in EC2
+* [A Kubernetes failure story (dex) - anonymous Fullstaq client - Dutch kubernetes meetup slides 2019-06](https://pieterlange.github.io/failure-stories/2019-06.dex.html)
+    * involved: etcd, apiserver, dex, custom resources
+    * impact: broken control plane on production with no access to o11y due to broken authentication system, no actual business impact
+* [A Kubernetes crime story - Prezi - blog post 2019](https://engineering.prezi.com/https-engineering-prezi-com-a-kubernetes-crime-story-2e8d75a77630)
+    * involved: AWS EKS, SNAT, conntrack, Amazon VPC CNI plugin
+    * impact: delay of 1-3 seconds for outgoing TCP connections
+* [Postmortem: New K8s workers unable to join cluster - FREE NOW - postmortem 2019](https://github.com/freenowtech/postmortems/blob/master/2019-09-19%20-%20New%20K8s%20workers%20unable%20to%20join%20cluster.pdf)
+    * involved: AWS spot instances, kops, CentOS, container-selinux
+    * impact: insufficient cluster capacity in testing environments, failed deployments in production and staging environments
+* [How a simple admission webhook lead to a cluster outage - Jetstack - blog post 2019](https://blog.jetstack.io/blog/gke-webhook-outage)
+    * involved: ValidatingWebhookConfiguration, GKE node auto-repair
+    * impact: prolonged downtime of non-prod environment, nodes lost, failed master upgrade
+* [Post Mortem: Kubernetes Node OOM - Blue Matador - blog post 2019](https://www.bluematador.com/blog/post-mortem-kubernetes-node-oom)
+    * involved: AWS, SystemOOM, EBS, fluentd-sumologic, no resource requests/limits
+    * impact: unknown, Pods killed
+* [Kubernetes’ dirty endpoint secret and Ingress - Ravelin - blog post 2019](https://philpearl.github.io/post/k8s_ingress/)
+    * involved: GKE, Ingress, replication controller, SIGTERM, "graceful shutdown"
+    * impact: occasional 502 errors
+* [How a Production Outage Was Caused Using Kubernetes Pod Priorities - Grafana Labs 2019](https://grafana.com/blog/2019/07/24/how-a-production-outage-was-caused-using-kubernetes-pod-priorities/)
+    * involved: Pod priorities
+    * impact: cascading Pod evictions
+* [Moving to Kubernetes: the Bad and the Ugly - Xing - ContainerDays EU 2019](https://www.youtube.com/watch?v=MoIdU0J0f0E)
+    * involved: nginx Ingress, network interrupts, conntrack, frozen CronJob, PLEG, stuck controllers
+    * impact: lost requests, response time jumps, not ready nodes
+* [Kubernetes Failure Stories, or: How to Crash Your Cluster - Zalando - ContainerDays EU 2019](https://www.youtube.com/watch?v=LpFApeaGv7A)
+    * involved: AWS IAM, Kubelet, `--kube-api-qps`, Skipper-Ingress, AWS, `OOMKill`, CronJob, CoreDNS, CPU throttling
+    * impact: build errors, production outages
+* [Build Errors of Continuous Delivery Platform - Zalando - postmortem 2019](https://github.com/zalando-incubator/kubernetes-on-aws/blob/dev/docs/postmortems/jun-2019-kubelet-qps.md)
+    * involved: AWS IAM, Kubelet, kube2iam, `--kube-api-qps`
+    * impact: build errors
 * [10 Ways to Shoot Yourself in the Foot with Kubernetes, #9 Will Surprise You - Datadog - KubeCon Barcelona 2019](https://www.youtube.com/watch?v=QKI-JRs2RIE)
     * involved: CoreDNS, `ndots:5`, IPVS conntrack, `imagePullPolicy: Always`, DaemonSet, NAT instances, `latest` tag, API server `OOMKill`, kube2iam, cluster-autoscaler, PodPriority, audit logs, `spec.replicas`, AWS ASG rebalance, CronJob, Pod toleration, zombies, `readinessProbe.exec`, cgroup freeze, kubectl
     * impact: unknown, API server outage, pending pods, slow deployments
@@ -45,7 +81,7 @@ Most recent publications on top.
 * [On Infrastructure at Scale: A Cascading Failure of Distributed Systems - Target - Medium post January 2019](https://medium.com/@daniel.p.woods/on-infrastructure-at-scale-a-cascading-failure-of-distributed-systems-7cff2a3cd2df)
     * involved: on-premise, Kafka, large cluster, Consul, Docker daemon, high CPU usage
     * impact: development environment outage
- * [How NOT to do Kubernetes - Sr.SRE Medya Ghazizadeh - Google - Cloud Native Meetup Sep 2018](https://www.youtube.com/watch?v=V0DVkrHf08k)
+* [How NOT to do Kubernetes - Sr.SRE Medya Ghazizadeh - Google - Cloud Native Meetup Sep 2018](https://www.youtube.com/watch?v=V0DVkrHf08k)
     * involved: public container registery, ingress wild card, image size, replica count, 12factor
     * impact: security, stablity of clusters.
 * [Running Kubernetes in Production: A Million Ways to Crash Your Cluster - Zalando - DevOpsCon Munich 2018](https://www.slideshare.net/try_except_/running-kubernetes-in-production-a-million-ways-to-crash-your-cluster-devopscon-munich-2018)
@@ -54,7 +90,7 @@ Most recent publications on top.
 * [Outages? Downtime? - Veracode - blog post 2018](https://sethmccombs.github.io/work/2018/12/03/Outages.html)
     * involved: AWS, AWS IAM, region migration, kubespray, Terraform, pod CIDR
     * impact: QA/dev cluster outage
-* [NRE Labs Outage Post-Mortem - NRE Labs - blog post 2018](https://keepingitclassless.net/2018/12/december-4---nre-labs-outage-post-mortem/)
+* [NRE Labs Outage Post-Mortem - NRE Labs - blog post 2018](https://keepingitclassless.net/2018/12/december-4-nre-labs-outage-post-mortem/)
     * involved: GCP, kubeadm, etcd, Terraform, `livenessProbe`
     * impact: production outage
 * [A Perfect DNS Storm - Toyota Connected - blog post 2018](https://www.adammargherio.com/a-perfect-dns-storm/)
@@ -111,7 +147,6 @@ Considering this environment, we don't hear enough real-world horror stories to 
 This compilation of failure stories should make it easier for people dealing with Kubernetes operations (SRE, Ops, platform/infrastructure teams) to
 learn from others and reduce the unknown unknowns of running Kubernetes in production.
 For more information, [see the blog post](https://srcco.de/posts/kubernetes-failure-stories.html).
-
 
 # Contributing
 
